@@ -1,0 +1,69 @@
+<form id="aggiuntaOggetto" [formGroup]="calciatoreForm" (ngSubmit)="aggiungiOggetto(calciatoreForm.value)" class="p-5">
+  <h3 class="text-danger text-center"><b>AGGIUNGI NUOVO GIOCATORE</b></h3>
+  <br>
+  <div class="form-row m-2">
+      <div class="col">
+          Nome
+          <input type="text" class="form-control" [formControl]="calciatoreForm.controls['nome']">
+          <div *ngIf="calciatoreForm.controls['nome'].hasError('required')" class="text-danger mt-1">Il nome è richiesto</div>
+      </div>
+      <div class="col">
+          Cognome
+          <input type="text" class="form-control" [formControl]="calciatoreForm.controls['cognome']">
+          <div *ngIf="calciatoreForm.controls['nome'].hasError('required')" class="text-danger mt-1">Il cognome è richiesto</div>
+      </div>
+      <div class="col">
+          Ruolo
+          <input type="text" class="form-control" [formControl]="calciatoreForm.controls['ruolo']">
+          <div *ngIf="calciatoreForm.controls['ruolo'].hasError('required')" class="text-danger mt-1">Il ruolo è richiesto</div>
+      </div>
+  </div>
+  <div class="form-row m-2">
+      <div class="col">
+          Prezzo
+          <input type="number" class="form-control" [formControl]="calciatoreForm.controls['prezzo']">
+          <div *ngIf="calciatoreForm.controls['prezzo'].hasError('required')" class="text-danger mt-1">Il prezzo è richiesto</div>
+      </div>
+      <div class="col">
+      Piede
+      <input type="text" class="form-control" [formControl]="calciatoreForm.controls['piede']">
+      <div *ngIf="calciatoreForm.controls['piede'].hasError('required')" class="text-danger mt-1">Il piede è richiesto</div>
+  </div>
+  <div class="col">
+      Nazione
+      <input type="text" class="form-control" [formControl]="calciatoreForm.controls['nazione']">
+      <div *ngIf="calciatoreForm.controls['nazione'].hasError('required')" class="text-danger mt-1">La nazione è richiesta</div>
+  </div>
+  </div>
+  <button class="m-3 btn-success btn btn-block btn-md w-25 float-right" type="submit" [disabled]="!calciatoreForm.valid">Aggiungi</button>
+</form>
+<br>
+<br>
+<h3 class="text-danger text-center"><b>GIOCATORI IN VENDITA</b></h3>
+<br>
+<div class="container-fluid container-post p-5">
+  <div *ngFor="let post of posts" class="border border-primary p-4 " id="post">
+    <h2 class="d-inline-block text-success"><b>{{post.nome}} {{post.cognome}}</b></h2>
+    <hr>
+    <h4 class="d-inline-block float-right">€ {{post.prezzo}}</h4>
+    <h6><b>Ruolo:</b> {{post.ruolo}}</h6>
+    <h6><b>Piede:</b> {{post.piede}}</h6>
+    <h6><b>Nazione:</b> {{post.nazione}}</h6>
+    <br>
+    <h6><b>Contattatemi:</b> ({{post.emailAllenatore}})</h6>
+    <br>
+    <div>
+      <input type="text" class="form-control" placeholder="Aggiungi un commento ..." #commento>
+      <button class="btn btn-sm btn-danger" id="btnCommenta" (click)="commenta(commento, post)">Commenta</button>
+      <h6 *ngIf="log" class="text-danger">Non ti sei loggato!</h6>
+    </div>
+    <br>
+    <div *ngFor="let commento of post.commenti" class=" p-2 mb-4" id="commento">
+      <h6 class="d-inline-block"><b>{{commento.nomeAllenatore}} {{commento.cognomeAllenatore}} ({{commento.squadra}})</b></h6>
+      <p style="font-size:14px">- {{commento.testo}}</p>
+      <p class="d-inline-block float-right"><small><b>{{commento.data}}</b></small></p>
+      <br>
+    </div>
+    <h6 class="text-secondary float-right"><small><b>{{post.data}}</b></small></h6>
+  </div>
+</div>
